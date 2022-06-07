@@ -1,0 +1,962 @@
+html {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.btn {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #fff;
+}
+
+.text {
+    margin: 0;
+}
+
+.title {
+    margin: 0;
+}
+
+:root {
+    --purple: #9873FF;
+    --grey: #B0B0B0;
+    --light-grey: #C8C5D1;
+    --black: #333;
+    --white: #fff;
+    --light-purple: #B89EFF;
+    --color-grey-text: #B0B0B0;
+    --dark-purple: #8052FF;
+    --background-grey: #E7E5EB;
+    --dark-white: #F4F3F6;
+    --red: #F06A4D;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.hidden-title {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+}
+
+.disabled {
+    display: none;
+}
+
+/* header */
+
+.header {
+    box-shadow: 0px 9.03012px 27.0904px rgba(176, 190, 197, 0.32), 0px 3.38629px 5.64383px rgba(176, 190, 197, 0.32);
+}
+
+.header__container {
+    display: flex;
+    align-items: center;
+    padding: 20px 20px;
+}
+
+.header__logo {
+    margin-right: 53px;
+}
+
+.header__input {
+    width: 580px;
+    height: 44px;
+    padding-left: 16px;
+    border: 1px solid rgba(51, 51, 51, 0.2);
+}
+
+.header__input::placeholder {
+    color: var(--grey);
+}
+
+.header__inner {
+    position: relative;
+    width: 100%;
+}
+
+
+/* main */
+
+.main__container {
+    padding: 40px 90px;
+}
+
+.main__title {
+    margin-bottom: 30px;
+    font-size: 24px;
+    line-height: 33px;
+}
+
+.main__table {
+    width: 100%;
+}
+
+/* Шапка таблицы */
+.th-btn {
+    display: flex;
+    align-items: center;
+    color: var(--grey);
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.th:first-child {
+    padding-left: 20px;
+}
+
+.th {
+    cursor: pointer;
+    transition: color .2s linear;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.th:not(:first-child) {
+    padding-left: 28px;
+}
+
+.th-span {
+    text-align: start;
+}
+
+
+.th-span-filter {
+    font-size: 10px;
+    line-height: 14px;
+    color: var(--purple);
+}
+
+.th {
+    cursor: default;
+}
+
+.th-btn {
+    cursor: default;
+}
+
+.th-hover {
+    cursor: pointer;
+}
+
+.th-sort {
+    cursor: pointer;
+}
+
+.th-hover:hover .th-btn {
+    color: var(--black);
+    transition: color .3s linear;
+}
+
+.th svg {
+    width: 8px;
+    margin-left: 3px;
+    margin-right: 2px;
+}
+
+.th-active {
+    color: var(--purple);
+}
+
+.arrow-dir svg {
+    transform: rotate(-180deg);
+}
+
+/* Кнопка добавить клиента */
+
+.main__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 12.5px 26.5px;
+    color: var(--purple);
+    border: 1px solid var(--purple);
+    transition: color .3s linear, background-color .3s linear;
+}
+
+.main__btn-svg {
+    margin-right: 10px;
+}
+
+.main__btn:hover {
+    background-color: var(--light-purple);
+    color: var(--white);
+}
+
+.main__btn:hover svg path {
+    transition: fill .3s linear;
+    fill: var(--white);
+}
+
+.main__btn:focus-visible {
+    outline: none;
+    background-color: var(--light-purple);
+    color: var(--white);
+}
+
+.main__btn:focus-visible svg path {
+    transition: fill .3s linear;
+    fill: var(--white);
+}
+
+.main__btn:active {
+    background-color: var(--dark-purple);
+    color: var(--white);
+}
+
+.main__btn:active svg path {
+    transition: fill .3s linear;
+    fill: var(--white);
+}
+
+
+/* Модальные окна */
+
+.back-modal {
+    position: fixed;
+    overflow-x: auto;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000080;
+    opacity: 0;
+}
+
+.back-modal__content {
+    max-width: 450px;
+    cursor: auto;
+    position: absolute;
+    padding: 25px 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.15);
+    background-color: var(--white);
+    opacity: 0;
+}
+
+.modal-disabled {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease-in-out, visibility .3s ease-in-out;
+}
+
+.modal-active {
+    animation: fade .3s ease-in-out .3s forwards;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.modal__close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 20px;
+    height: 20px;
+}
+
+.modal__close:active,
+.modal__close:focus-visible {
+    outline: none;
+}
+
+.modal__close svg path {
+    transition: fill .2s linear;
+}       
+
+.modal__close:hover svg path,
+.modal__close:focus-visible svg path {
+    fill: var(--light-purple)
+}
+
+.modal__close:active svg path {
+    fill: var(--purple)
+}
+
+.modal__add-title {
+    display: inline-block;
+    margin: 0;
+    margin-right: 2px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.modal__id {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--grey);
+}
+
+.modal__form {
+    width: 390px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-floating {
+    position: relative;
+    margin-bottom: 32px;
+}
+
+.modal__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    font-size: 14px;
+    padding-top: 5px;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+    color: var(--color-grey-text);
+}
+
+.form-floating>.modal__input:focus~label,
+.form-floating>.modal__input:not(:placeholder-shown)~label {
+    top: -10px;
+    transform: scale(.85) translate(.15rem, -.5rem);
+}
+
+.modal__input::placeholder {
+    font-size: 0;
+}
+
+.modal__input {
+    display: block;
+    outline: none;
+    width: 100%;
+    border: none;
+    height: 28px;
+    border-bottom: 1px solid var(--light-grey);
+}
+
+.modal__form button {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.modal__add-contact {
+    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 -30px;
+    margin-bottom: 25px;
+    background-color: rgba(200, 197, 209, .3);
+}
+
+.modal__add-contact--btn {
+    border: none;
+    cursor: pointer;
+    display: flex;
+    position: relative;
+    padding-left: 16px;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    color: var(--black);
+    transition: color .3s ease-in-out;
+    background-color: transparent;
+}
+
+.modal__add-contact--btn:hover {
+    color: var(--purple);
+}
+
+.modal__add-contact--btn:focus-visible {
+    outline: none;
+    color: var(--purple);
+}
+
+.modal__label-span {
+    color: var(--purple);
+}
+
+.add-contact-btn-disabled {
+    display: none;
+}
+
+.btn-contact-svg {
+    display: block;
+    position: absolute;
+    left: -5px;
+    width: 16px;
+    height: 16px;
+}
+
+.btn-contact-svg-2 {
+    visibility: hidden;
+}
+
+.modal__add-contact--btn:hover .btn-contact-svg-1,
+.modal__add-contact--btn:focus-visible .btn-contact-svg-1 {
+    opacity: 0;
+    visibility: hidden;
+    transition:  opacity .3s ease-in-out, visibility .3s ease-in-out;
+}
+
+.modal__add-contact--btn:hover .btn-contact-svg-2,
+.modal__add-contact--btn:focus-visible   .btn-contact-svg-2 {
+    opacity: 1;
+    visibility: visible;
+    transition: visibility .3s ease-in-out;
+}
+
+.modal__btn-save {
+    padding: 12px 35px;
+    align-self: center;
+    position: relative;
+    margin-bottom: 5px;
+    background-color: var(--purple);
+    transition: background-color .3s ease-in-out;
+}
+
+.modal__btn-save:hover {
+    background-color: var(--light-purple);
+}
+
+.modal__btn-save:focus-visible {
+    outline: none;
+    background-color: var(--light-purple);
+}
+
+.modal__btn-save:active {
+    background-color: var(--dark-purple);
+}
+
+.modal__btn-back {
+    font-weight: 400;
+    font-size: 12px;
+    align-self: center;
+    padding-bottom: 1px;
+    border-bottom: 1px solid var(--black);
+    color: var(--black);
+    transition: color .3s ease-in-out, border-color .3s ease-in-out;
+}
+
+.modal__btn-back:hover {
+    color: var(--light-purple);
+    border-color: var(--light-purple);
+}
+
+.modal__btn-back:focus-visible {
+    outline: none;
+    color: var(--light-purple);
+    border-color: var(--light-purple);
+}
+
+.modal__btn-back:active {
+    color: var(--purple);
+    border-color: var(--purple);
+}
+
+.modal__error {
+    margin: 0;
+    margin-top: -17px;
+    line-height: 14px;
+    font-size: 10px;
+    text-align: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    max-width: 255px;
+    color: var(--red);
+}
+
+.action-wait {
+    background-image: none;
+}
+
+.actions__spinner {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: spinner .3s ease-in-out;
+    animation-duration: 1s;
+    animation-iteration-count:infinite;
+    animation-timing-function:linear;
+}
+  
+  .clients__edit .actions__spinner svg {
+    stroke: var(--purple);
+    fill: none;
+  }
+  
+  .clients__delete .actions__spinner svg {
+    stroke: var(--red);
+    fill: none;
+  }
+
+@keyframes spinner {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.modal__delete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px 87px;
+}
+
+.delete-title {
+    margin-bottom: 11px;
+}
+
+.modal__text {
+    text-align: center;  
+    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 19px;  
+}
+
+/* Модальное окно Добавить контакт */
+
+.contact {
+    display: flex;
+    align-items: center;
+    width: 390px;
+    margin-bottom: 25px;
+}
+
+.contact__type {
+    position: relative;
+}
+
+.contact__name {
+    height: 37px;
+    z-index: 1;
+    max-width: 134px;
+    min-width: 134px;
+    position: relative;
+    padding: 10px 12px;
+    padding-right: 60px;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
+    border: 1px solid var(--light-grey);
+    background-color: var(--background-grey);
+    transition: background-color .3s ease-in-out;
+}
+
+.contact__name::before {
+    content: '';
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    width: 10px;
+    height: 10px;
+    background-image: url('../img/add-contacts-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: transform .3s ease-in-out;
+}
+
+.contact__name:hover {
+    background-color: var(--light-grey);
+}
+
+.contact__name:active {
+    background-color: var(--background-grey);
+}
+
+.contact__list--active.contact__name::before {
+    transform: rotate(-180deg);
+}
+
+.contact__list {
+    z-index: 2;
+    position: absolute;
+    font-size: 12px;
+    padding: 4.5px 0;
+    width: 100%;
+    max-width: 134px;
+    min-width: 134px;
+    top: 36px;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease-in-out, visibility .3s ease-in-out;
+    background-color: var(--dark-white);
+    border: 1px solid var(--light-grey);
+}
+
+.contact__list.contact__list--active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.contact__item {
+    cursor: pointer;
+    padding: 4.5px 12px;
+    border-bottom: 7px;
+    padding-left: 12px;
+    transition: background-color .3s ease-in-out;
+}
+
+.contact__item:hover {
+    background-color: var(--background-grey);
+}
+
+.contact__input {
+    padding-left: 12px;
+    width: 100%;
+    height: 37px;
+    display: block;
+    border: 1px solid var(--grey);
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
+}
+
+.contact__delete {
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    align-self: stretch;
+    background-color: var(--background-grey);
+    border: 1px solid var(--grey);
+    transition: border-color .3s ease-in-out;
+    color: var(--color-white);
+}
+
+.contact__delete svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+.contact__delete:hover {
+    border-color: var(--red);
+    transition: border-color .3s ease-in-out;
+}
+
+.contact__delete:hover svg path{
+    fill: var(--red);
+    transition: fill .3s ease-in-out;
+}
+
+/* Тултипы */
+
+.site-tooltip {
+    position: absolute;
+    top: -41px;
+    display: block;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease-in-out, visibility .3s ease-in-out;
+    padding: 7px 15px;
+    background-color: var(--black);
+}
+
+.site-tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: -9px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    transform: translateX(-50%);
+    clip-path: polygon(100% 0, 0 0, 51% 100%);
+    background-color: var(--black);
+}
+
+.contact-tooltip {
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    width: auto;
+    color: var(--white);
+}
+
+.contact__delete:hover .contact-tooltip {
+    transition: opacity .3s ease-in-out, visibility .3s ease-in-out, transform .3s ease-in-out;
+}
+
+.contacts__link:hover .contact-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.contact__delete:hover .contact-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.contact__delete .contact-tooltip {
+    min-width: 130px;
+    top: -30px;
+}
+
+.contact-tooltip__type {
+    margin-right: 2px;
+    display: block;
+    color: var(--white);
+}
+
+.contact-tooltip__value {
+    display: block;
+    text-decoration: underline;
+    font-weight: 700;
+    color: var(--purple);
+}
+
+.contacts__link:hover .contact-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .5s ease-in-out, visibility .5s ease-in-out, transform .5s ease-in-out;
+}
+
+/* Таблица */
+
+table {
+    border-spacing: 0;
+}
+
+.table-body {
+    width: 120%;
+}
+
+td:not(:first-child) {
+    padding-left: 28px;
+}
+
+td:first-child {
+    padding: 20px 0 20px 20px;
+}
+
+td {
+    font-size: 12px;
+    border-bottom: 1px solid rgba(200, 197, 209, 1);
+}
+
+.clients__id {
+    color: var(--grey);
+}
+
+.clients__contacts {
+    width: 140px;
+    font-size: 12px;
+}
+
+.clients__contacts svg {
+    opacity: .7;
+}
+
+.contacts__link {
+    position: relative;
+    float: left;
+}
+
+.contacts__link g,
+.contacts__link path {
+    transition: opacity .3s ease-in-out;
+}
+
+.contacts__link:hover g,
+.contacts__link:hover path {
+    opacity: 1;
+    transition: opacity .3s ease-in-out;
+}
+
+.contacts__link svg:not(:nth-child(5n)) {
+    margin-right: 6px;
+}
+
+.created__time {
+    margin-left: 7px;
+    color: var(--grey);
+}
+
+.changed__time {
+    margin-left: 7px;
+    color: var(--grey);
+}
+
+
+.clients__edit {
+    position: relative;
+    padding-left: 15px;
+    margin-right: 32px;
+    color: var(--black);
+    background-image: url(../img/edit-contact.svg);
+    background-repeat: no-repeat;
+    background-position: left top;
+    transition: color .3s ease-in-out;
+}
+
+.clients__edit:hover {
+    color: var(--purple);
+}
+
+.clients__delete {
+    position: relative;
+    padding-left: 15px;
+    color: var(--black);
+    background-image: url(../img/delete-contact.svg);
+    background-repeat: no-repeat;
+    background-position: left center;
+    transition: color .3s ease-in-out;
+}
+
+.clients__delete:hover {
+    color: var(--red);
+}
+
+/* Прелоадер */
+
+ .preloader__block {
+     position: relative;
+     width: 100%;
+     height: 300px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .preloader__element {
+    width: 72px;
+    height: 72px;
+    background-image: url(../img/preloader.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    animation: preloader 1.3s linear infinite;
+ }
+
+ .preloader-remove {
+    display: none;
+}
+
+@keyframes preloader {
+    0%   {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width:1160px) {
+    .main__container {
+        padding: 40px 20px;
+    }
+}
+
+@media (max-width:1018px) {
+    td:not(:first-child) {
+        padding-left: 16px;
+    }
+
+    td:first-child {
+        padding-left: 16px;
+    }
+
+    .th:first-child {
+        padding-left: 14px;
+    }
+
+    .th:not(:first-child) {
+        padding-left: 16px;
+    }
+
+    .th {
+        text-align: left;
+    }
+
+    .th-btn {
+        display: inline-block;
+    }
+
+    .clients__full-name{
+        min-width: 200px;
+    }
+
+    .clients__contacts {
+        width: 130px;
+    }
+
+    .created__time {
+        display: block;
+        margin: 0;
+    }
+
+    .changed__time {
+        display: block;
+        margin: 0;
+    }
+
+    .clients__edit {
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width:760px) {
+    
+    body {
+        width: 760px;
+        overflow-x: scroll;
+    }
+}

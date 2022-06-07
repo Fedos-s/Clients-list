@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Список студентов</title>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__container">
+      <img src="img/logo.svg" alt="Логотип" class="header__logo">
+      <input type="text" class="header__input" placeholder="Введите запрос" id="header-input">
+      <ul class="find-list hide" id="find-list"></ul>
+    </div>
+  </header>
+  <main>
+    <section class="main">
+      <div class="container main__container">
+        <h1 class="hidden-title">Список клиентов компании Skillbus</h1>
+        <h2 class="title main__title">Клиенты</h2>
+        <table class="main__table table">
+          <thead class="table-header">
+            <tr>
+              <th class="th th-hover">
+                <button class="btn th-btn th-sort th-active arrow-direction" data-column="id">
+                  <span class="th-span">ID</span>
+                  <svg width="8" height="8" viewbox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 4L7.295 3.295L4.5 6.085L4.5 0L3.5 0L3.5 6.085L0.71 3.29L0 4L4 8L8 4Z" fill="#9873FF"/>
+                  </svg>
+                </button>
+                </th>
+                <th class="th th-hover">
+                  <button class="btn th-btn th-sort" data-column="surname">
+                    <span class="th-span">Фамилия Имя Отчество</span>
+                    <svg width="8" height="8" viewbox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 4L7.295 3.295L4.5 6.085L4.5 0L3.5 0L3.5 6.085L0.71 3.29L0 4L4 8L8 4Z" fill="#9873FF"/>
+                    </svg>
+                    <span class="th-span-filter">А-Я</span>
+                  </button>
+                </th>
+                <th class="th th-hover">
+                  <button class="btn th-btn th-sort" data-column="createdAt">
+                    <span class="th-span">Дата и время создания</span>
+                    <svg width="8" height="8" viewbox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 4L7.295 3.295L4.5 6.085L4.5 0L3.5 0L3.5 6.085L0.71 3.29L0 4L4 8L8 4Z" fill="#9873FF"/>
+                    </svg>
+                  </button>
+                </th>
+                <th class="th th-hover">
+                  <button class="btn th-btn th-sort" data-column="updatedAt">
+                    <span class="th-span">Последние изменения</span>
+                    <svg width="8" height="8" viewbox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 4L7.295 3.295L4.5 6.085L4.5 0L3.5 0L3.5 6.085L0.71 3.29L0 4L4 8L8 4Z" fill="#9873FF"/>
+                    </svg>
+                  </button>
+                </th>
+                <th class="th">
+                  <button class="btn th-btn">
+                    <span class="th-span">Контакты</span>
+                  </button>
+                </th>
+                <th class="th">
+                  <button class="btn th-btn">
+                    <span class="th-span">Действия</span>
+                  </button>
+                </th>
+            </tr>
+          </thead>
+          <tbody class="table-body" id="clients-list">
+          
+          </tbody>
+        </table>
+        <div class="preloader__block" id="preloader">
+          <span class="preloader__element"></span>
+        </div>
+        <button class="btn main__btn" id="btn-add-client">
+          <span class="main__btn-svg">
+            <svg width="23" height="16" viewbox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.5 8C16.71 8 18.5 6.21 18.5 4C18.5 1.79 16.71 0 14.5 0C12.29 0 10.5 1.79 10.5 4C10.5 6.21 12.29 8 14.5 8ZM5.5 6V3H3.5V6H0.5V8H3.5V11H5.5V8H8.5V6H5.5ZM14.5 10C11.83 10 6.5 11.34 6.5 14V16H22.5V14C22.5 11.34 17.17 10 14.5 10Z" fill="#9873FF"/>
+            </svg>             
+          </span>
+          Добавить клиента
+        </button>
+      </div>
+    </section>
+  </main>
+  <div class="modal back-modal modal-disabled" id="add-modal">
+    <div class="modal__add modal__content back-modal__content  modal-active" >
+      <h3 class="title modal__add-title">Новый клиент</h3>
+      <button class="btn modal__close" id="close-add-modal">
+        <svg width="17" height="17" viewbox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2333 1.73333L15.2666 0.766664L8.49991 7.53336L1.73324 0.766696L0.766576 1.73336L7.53324 8.50003L0.766603 15.2667L1.73327 16.2333L8.49991 9.46669L15.2666 16.2334L16.2332 15.2667L9.46657 8.50003L16.2333 1.73333Z" fill="#B0B0B0"/>
+        </svg>
+      </button>
+      <form class="modal__form form-add" id="add-client">
+        <div class="form-floating">
+          <input type="text" class="modal__input" id="add-name" placeholder="Имя">
+          <label class="modal__label">
+            Имя
+            <span class="modal__label-span">*</span>
+          </label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="modal__input" id="add-surname" placeholder="Фамилия">
+          <label class="modal__label">
+            Фамилия
+            <span class="modal__label-span">*</span>
+          </label>
+        </div>
+        <div class="form-floating">        
+            <input type="text" class="modal__input" id="add-last-name" placeholder="Отчество">
+            <label class="modal__label">
+              Отчество
+              <span class="modal__label-span">*</span>
+            </label>
+          </div>
+        <div class="modal__add-contact" id="modal-contact-container">
+          <button class="btn modal__add-contact--btn" id="btn-add-contact-modal">
+            <svg class="btn-contact-svg btn-contact-svg-1" width="14" height="14" viewbox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.00001 3.66659C6.63334 3.66659 6.33334 3.96659 6.33334 4.33325V6.33325H4.33334C3.96668 6.33325 3.66668 6.63325 3.66668 6.99992C3.66668 7.36659 3.96668 7.66659 4.33334 7.66659H6.33334V9.66659C6.33334 10.0333 6.63334 10.3333 7.00001 10.3333C7.36668 10.3333 7.66668 10.0333 7.66668 9.66659V7.66659H9.66668C10.0333 7.66659 10.3333 7.36659 10.3333 6.99992C10.3333 6.63325 10.0333 6.33325 9.66668 6.33325H7.66668V4.33325C7.66668 3.96659 7.36668 3.66659 7.00001 3.66659ZM7.00001 0.333252C3.32001 0.333252 0.333344 3.31992 0.333344 6.99992C0.333344 10.6799 3.32001 13.6666 7.00001 13.6666C10.68 13.6666 13.6667 10.6799 13.6667 6.99992C13.6667 3.31992 10.68 0.333252 7.00001 0.333252ZM7.00001 12.3333C4.06001 12.3333 1.66668 9.93992 1.66668 6.99992C1.66668 4.05992 4.06001 1.66659 7.00001 1.66659C9.94001 1.66659 12.3333 4.05992 12.3333 6.99992C12.3333 9.93992 9.94001 12.3333 7.00001 12.3333Z" fill="#9873FF"/>
+            </svg>
+            <svg class="btn-contact-svg btn-contact-svg-2" width="14" height="14" viewbox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M0.333313 7.00016C0.333313 3.32016 3.31998 0.333496 6.99998 0.333496C10.68 0.333496 13.6666 3.32016 13.6666 7.00016C13.6666 10.6802 10.68 13.6668 6.99998 13.6668C3.31998 13.6668 0.333313 10.6802 0.333313 7.00016ZM6.33329 4.33366C6.33329 3.96699 6.63329 3.66699 6.99996 3.66699C7.36663 3.66699 7.66663 3.96699 7.66663 4.33366V6.33366H9.66663C10.0333 6.33366 10.3333 6.63366 10.3333 7.00033C10.3333 7.36699 10.0333 7.66699 9.66663 7.66699H7.66663V9.66699C7.66663 10.0337 7.36663 10.3337 6.99996 10.3337C6.63329 10.3337 6.33329 10.0337 6.33329 9.66699V7.66699H4.33329C3.96663 7.66699 3.66663 7.36699 3.66663 7.00033C3.66663 6.63366 3.96663 6.33366 4.33329 6.33366H6.33329V4.33366Z" fill="#9873FF"/>
+            </svg>
+            Добавить контакт
+          </button>
+        </div>
+          <p class="modal__error text" id="modalErr">
+            <span class="err" id="add-err-span"></span>
+          </p>
+          <button type="submit" class="modal__btn-save btn" id="save-new-client">
+            Сохранить
+          </button>
+          <button class="modal__btn-back btn" id="btn-back">Отмена</button>
+      </form>
+    </div>
+  </div>
+  <div class="modal back-modal modal-disabled" id="edit-modal">
+    <div class="modal__add modal__content back-modal__content  modal-active" >
+      <h3 class="title modal__add-title edit-title">Изменить данные</h3>
+      <span class="modal__id" id="edit-id-visible"></span>
+      <button class="btn modal__close" id="close-edit-modal">
+        <svg width="17" height="17" viewbox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2333 1.73333L15.2666 0.766664L8.49991 7.53336L1.73324 0.766696L0.766576 1.73336L7.53324 8.50003L0.766603 15.2667L1.73327 16.2333L8.49991 9.46669L15.2666 16.2334L16.2332 15.2667L9.46657 8.50003L16.2333 1.73333Z" fill="#B0B0B0"/>
+        </svg>
+      </button>
+      <form class="modal__form form-add" id="edit-client">
+        <div class="form-floating">
+          <input type="text" class="modal__input" id="edit-name" placeholder="Имя">
+          <label class="modal__label">
+            Имя
+            <span class="modal__label-span">*</span>
+          </label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="modal__input" id="edit-surname" placeholder="Фамилия">
+          <label class="modal__label">
+            Фамилия
+            <span class="modal__label-span">*</span>
+          </label>
+        </div>
+        <div class="form-floating">        
+            <input type="text" class="modal__input" id="edit-lastname" placeholder="Отчество">
+            <label class="modal__label">
+              Отчество
+              <span class="modal__label-span">*</span>
+            </label>
+          </div>
+        <div class="modal__add-contact" id="edit-contact-container">
+          <button class="btn modal__add-contact--btn" id="btn-edit-contact-modal">
+            <svg class="btn-contact-svg btn-contact-svg-1" width="14" height="14" viewbox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.00001 3.66659C6.63334 3.66659 6.33334 3.96659 6.33334 4.33325V6.33325H4.33334C3.96668 6.33325 3.66668 6.63325 3.66668 6.99992C3.66668 7.36659 3.96668 7.66659 4.33334 7.66659H6.33334V9.66659C6.33334 10.0333 6.63334 10.3333 7.00001 10.3333C7.36668 10.3333 7.66668 10.0333 7.66668 9.66659V7.66659H9.66668C10.0333 7.66659 10.3333 7.36659 10.3333 6.99992C10.3333 6.63325 10.0333 6.33325 9.66668 6.33325H7.66668V4.33325C7.66668 3.96659 7.36668 3.66659 7.00001 3.66659ZM7.00001 0.333252C3.32001 0.333252 0.333344 3.31992 0.333344 6.99992C0.333344 10.6799 3.32001 13.6666 7.00001 13.6666C10.68 13.6666 13.6667 10.6799 13.6667 6.99992C13.6667 3.31992 10.68 0.333252 7.00001 0.333252ZM7.00001 12.3333C4.06001 12.3333 1.66668 9.93992 1.66668 6.99992C1.66668 4.05992 4.06001 1.66659 7.00001 1.66659C9.94001 1.66659 12.3333 4.05992 12.3333 6.99992C12.3333 9.93992 9.94001 12.3333 7.00001 12.3333Z" fill="#9873FF"/>
+            </svg>
+            <svg class="btn-contact-svg btn-contact-svg-2" width="14" height="14" viewbox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M0.333313 7.00016C0.333313 3.32016 3.31998 0.333496 6.99998 0.333496C10.68 0.333496 13.6666 3.32016 13.6666 7.00016C13.6666 10.6802 10.68 13.6668 6.99998 13.6668C3.31998 13.6668 0.333313 10.6802 0.333313 7.00016ZM6.33329 4.33366C6.33329 3.96699 6.63329 3.66699 6.99996 3.66699C7.36663 3.66699 7.66663 3.96699 7.66663 4.33366V6.33366H9.66663C10.0333 6.33366 10.3333 6.63366 10.3333 7.00033C10.3333 7.36699 10.0333 7.66699 9.66663 7.66699H7.66663V9.66699C7.66663 10.0337 7.36663 10.3337 6.99996 10.3337C6.63329 10.3337 6.33329 10.0337 6.33329 9.66699V7.66699H4.33329C3.96663 7.66699 3.66663 7.36699 3.66663 7.00033C3.66663 6.63366 3.96663 6.33366 4.33329 6.33366H6.33329V4.33366Z" fill="#9873FF"/>
+            </svg>
+            Добавить контакт
+          </button>
+        </div>
+          <p class="modal__error text" id="edit-modal-err">
+            <span class="err" id="edit-err-span"></span>
+          </p>
+          <button type="submit" class="modal__btn-save btn">
+            Сохранить
+          </button>
+          <span class="modal__full-id disabled" id="modal-id"></span>
+          <button class="modal__btn-back btn" id="edit-btn-delete">Удалить клиента</button>
+      </form>
+    </div>
+  </div>
+  <div class="modal back-modal modal-disabled" id="delete-modal">
+    <div class="modal__delete modal__content back-modal__content  modal-active" >
+      <h3 class="title modal__add-title delete-title">Удалить клиента</h3>
+      <button class="btn modal__close" id="close-delete-modal">
+        <svg width="17" height="17" viewbox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2333 1.73333L15.2666 0.766664L8.49991 7.53336L1.73324 0.766696L0.766576 1.73336L7.53324 8.50003L0.766603 15.2667L1.73327 16.2333L8.49991 9.46669L15.2666 16.2334L16.2332 15.2667L9.46657 8.50003L16.2333 1.73333Z" fill="#B0B0B0"/>
+        </svg>
+      </button>
+      <p class="modal__text text">Вы дейтвительно хотите удалить данного клиента?</p>
+      <span class="modal__id disabled" id="delete-id"></span>
+      <button  class="modal__btn-save btn delete-btn" id="modal-delete-btn">
+        Удалить
+      </button>
+      <button class="modal__btn-back btn delete-btn" id="delete-btn-back">Отмена</button>
+    </div>
+  </div>
+  <script type="module" src="js/script.js"></script>
+</body>
+</html>
